@@ -8,28 +8,48 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class Reactivo {
-    private static boolean virtualThreads = true;
-    private static int port = 8080;
-    private static HttpServer httpServer;
+    private final HttpServer httpServer;
+    private boolean virtualThreads = true;
+    private int threadsInPool = 200;
 
-    public static void init() throws IOException {
-        httpServer = HttpServer.create(new InetSocketAddress(port), 0);
-        httpServer.setExecutor(getExecutor(virtualThreads));
+    private Reactivo(HttpServer httpServer) {
+        this.httpServer = httpServer;
     }
 
-    public static void start() {
+    public static Reactivo init() throws IOException {
+        return initOn(8888);
+    }
+
+    public static Reactivo initOn(int port) throws IOException {
+        var httpServer = HttpServer.create(new InetSocketAddress(port), 0);
+        return new Reactivo(httpServer);
+    }
+
+    public void start() {
+        httpServer.setExecutor(getExecutor(virtualThreads));
         httpServer.start();
     }
 
-    public static void addRoute(String path, RequestHandler handler) {
+    public Reactivo addRoute(String path, RequestHandler handler) {
         httpServer.createContext(path, handler);
+        return this;
     }
 
-    private static Executor getExecutor(boolean virtualThreads) {
+    private Executor getExecutor(boolean virtualThreads) {
         if (virtualThreads) {
             return Executors.newVirtualThreadPerTaskExecutor();
         } else {
-            return Executors.newFixedThreadPool(200);
+            return Executors.newFixedThreadPool(threadsInPool);
         }
+    }
+
+    public Reactivo virtualThreads(boolean virtualThreadsActive) {
+        virtualThreads = virtualThreadsActive;
+        return this;
+    }
+
+    public Reactivo threadPool(int threadsInPool) {
+        this.threadsInPool = threadsInPool;
+        return this;
     }
 }
