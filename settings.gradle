@@ -1,4 +1,4 @@
 rootProject.name = 'reactive-server'
 
-include 'lib', 'app'
+include 'lib', 'app', 'util'
 
