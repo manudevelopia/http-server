@@ -14,7 +14,7 @@ public abstract class RequestHandler implements HttpHandler {
 
     private final Map<String, BiConsumer<Request, Response>> handlers = new HashMap<>();
 
-    void get(String path, BiConsumer<Request, Response> handler) {
+    public void get(String path, BiConsumer<Request, Response> handler) {
         handlers.put("GET" + path, handler);
     }
 

@@ -1,2 +1,4 @@
 rootProject.name = 'reactive-server'
 
+include 'lib', 'app'
+

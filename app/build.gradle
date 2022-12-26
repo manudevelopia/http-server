@@ -4,11 +4,11 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
-group 'info.developia.reactive.server'
+group 'info.developia.reactive.server.app'
 version '1.0-SNAPSHOT'
 
 application {
-    mainClass = 'info.developia.reactive.server.Main'
+    mainClass = 'info.developia.reactive.server.app.Main'
 }
 
 repositories {
@@ -16,6 +16,7 @@ repositories {
 }
 
 dependencies {
+    implementation project (':lib')
     implementation 'io.vavr:vavr:0.10.4'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
@@ -28,4 +29,3 @@ test {
 
 tasks.withType(JavaCompile).configureEach { options.compilerArgs += "--enable-preview" }
 tasks.withType(Test).configureEach { jvmArgs += "--enable-preview" }
-//tasks.withType(JavaExec).configureEach { jvmArgs += '--enable-preview' }

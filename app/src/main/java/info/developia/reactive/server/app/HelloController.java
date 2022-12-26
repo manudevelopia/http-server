@@ -1,4 +1,6 @@
-package info.developia.reactive.server;
+package info.developia.reactive.server.app;
+
+import info.developia.reactive.server.RequestHandler;
 
 public class HelloController extends RequestHandler {
 

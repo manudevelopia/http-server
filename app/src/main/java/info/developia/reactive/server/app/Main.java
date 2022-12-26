@@ -1,10 +1,9 @@
-package info.developia.reactive.server;
+package info.developia.reactive.server.app;
 
-import java.io.IOException;
+import info.developia.reactive.server.Reactivo;
 
 public class Main {
-
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Reactivo.init()
                 .addRoute("/hello", new HelloController())
                 .addRoute("/bye", new ByeController())

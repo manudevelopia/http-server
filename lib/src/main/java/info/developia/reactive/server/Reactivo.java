@@ -21,8 +21,12 @@ public class Reactivo {
         this.port = port;
     }
 
-    public static Reactivo init() throws IOException {
-        return initOn(8888);
+    public static Reactivo init() {
+        try {
+            return initOn(8888);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     public static Reactivo initOn(int port) throws IOException {

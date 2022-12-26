@@ -2,7 +2,7 @@ FROM amazoncorretto:19-alpine-jdk
 
 MAINTAINER developia.info
 
-COPY build/libs/*.jar app.jar
+COPY app/build/libs/*.jar app.jar
 
 EXPOSE 8888:8888
 
