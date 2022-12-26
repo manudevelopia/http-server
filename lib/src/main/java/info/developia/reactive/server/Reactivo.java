@@ -13,12 +13,14 @@ public class Reactivo {
 
     private final HttpServer httpServer;
     private final int port;
+    private final Router router;
     private boolean virtualThreads = true;
     private int threadsInPool = 200;
 
     private Reactivo(HttpServer httpServer, int port) {
         this.httpServer = httpServer;
         this.port = port;
+        this.router = new Router();
     }
 
     public static Reactivo init() {
@@ -35,14 +37,10 @@ public class Reactivo {
     }
 
     public void start() {
+        httpServer.createContext("/", new RequestProcessor(router));
         httpServer.setExecutor(getExecutor(virtualThreads));
         httpServer.start();
         log.info("Server started on %s port".formatted(port));
-    }
-
-    public Reactivo addRoute(String path, RequestHandler handler) {
-        httpServer.createContext(path, handler);
-        return this;
     }
 
     private Executor getExecutor(boolean virtualThreads) {
@@ -60,6 +58,11 @@ public class Reactivo {
 
     public Reactivo threadPool(int threadsInPool) {
         this.threadsInPool = threadsInPool;
+        return this;
+    }
+
+    public Reactivo addHandler(String path, RequestHandler handler) {
+        router.map(path, handler);
         return this;
     }
 }
