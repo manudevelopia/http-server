@@ -1,21 +1,21 @@
 package info.developia.reactive.server;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.BiConsumer;
 
 public class RequestHandler {
-    private final Map<String, BiConsumer<Request, Response>> handlers = new HashMap<>();
+    private final List<Route> routes = new ArrayList<>();
 
     public void get(BiConsumer<Request, Response> handler) {
-        handlers.put("GET" + "/", handler);
+        routes.add(new Route("GET", "", handler));
     }
 
     public void get(String path, BiConsumer<Request, Response> handler) {
-        handlers.put("GET" + path, handler);
+        routes.add(new Route("GET", path, handler));
     }
 
-    public Map<String, BiConsumer<Request, Response>> handlers() {
-        return handlers;
+    public List<Route> routes() {
+        return routes;
     }
 }

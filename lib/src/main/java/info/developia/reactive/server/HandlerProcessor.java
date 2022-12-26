@@ -8,10 +8,10 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.function.BiConsumer;
 
-public class RequestProcessor implements HttpHandler {
+public class HandlerProcessor implements HttpHandler {
     private final Router router;
 
-    protected RequestProcessor(Router router) {
+    protected HandlerProcessor(Router router) {
         this.router = router;
     }
 
@@ -39,7 +39,6 @@ public class RequestProcessor implements HttpHandler {
     }
 
     private BiConsumer<Request, Response> getHandler(Request request) {
-//        return handlers.get(t.getRequestMethod() + t.getRequestURI().getPath());
-        return router.getHandler();
+        return router.getHandler(request.method() + request.path());
     }
 }

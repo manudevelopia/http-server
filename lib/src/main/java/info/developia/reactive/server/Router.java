@@ -8,10 +8,13 @@ public class Router {
     private final Map<String, BiConsumer<Request, Response>> routes = new HashMap<>();
 
     public void map(String basePath, RequestHandler handler) {
-        handler.handlers().forEach((path, pathHandler) -> routes.put(basePath + path, pathHandler));
+        handler.routes().forEach((route) -> routes.put(route.method() + basePath + route.pathPattern(), route.handler()));
     }
 
-    public BiConsumer<Request, Response> getHandler() {
-        return routes.entrySet().stream().findFirst().get().getValue();
+    public BiConsumer<Request, Response> getHandler(String handlerKey) {
+        return routes.computeIfAbsent(handlerKey, (e) -> (req, res) -> {
+            res.setStatus(404);
+            res.setBody("not found!!!");
+        });
     }
 }
