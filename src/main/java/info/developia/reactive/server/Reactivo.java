@@ -15,7 +15,6 @@ public class Reactivo {
     private final int port;
     private boolean virtualThreads = true;
     private int threadsInPool = 200;
-    private String status;
 
     private Reactivo(HttpServer httpServer, int port) {
         this.httpServer = httpServer;
@@ -34,7 +33,7 @@ public class Reactivo {
     public void start() {
         httpServer.setExecutor(getExecutor(virtualThreads));
         httpServer.start();
-        log.info("Server started on %s".formatted(port));
+        log.info("Server started on %s port".formatted(port));
     }
 
     public Reactivo addRoute(String path, RequestHandler handler) {
