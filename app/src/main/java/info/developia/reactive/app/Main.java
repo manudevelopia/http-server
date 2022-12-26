@@ -1,4 +1,4 @@
-package info.developia.reactive.server.app;
+package info.developia.reactive.app;
 
 import info.developia.reactive.server.Reactivo;
 

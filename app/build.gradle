@@ -8,7 +8,7 @@ group 'info.developia.reactive.server.app'
 version '1.0-SNAPSHOT'
 
 application {
-    mainClass = 'info.developia.reactive.server.app.Main'
+    mainClass = 'info.developia.reactive.app.Main'
 }
 
 repositories {
@@ -29,3 +29,4 @@ test {
 
 tasks.withType(JavaCompile).configureEach { options.compilerArgs += "--enable-preview" }
 tasks.withType(Test).configureEach { jvmArgs += "--enable-preview" }
+tasks.withType(JavaExec).configureEach { jvmArgs += '--enable-preview' }
