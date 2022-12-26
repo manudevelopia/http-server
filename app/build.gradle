@@ -19,8 +19,8 @@ dependencies {
     implementation project (':lib')
     implementation 'io.vavr:vavr:0.10.4'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+    testImplementation 'org.codehaus.groovy:groovy-all:3.0.13'
+    testImplementation 'org.spockframework:spock-core:2.3-groovy-3.0'
 }
 
 test {
