@@ -9,4 +9,8 @@ public class NodeTree<T> extends Node<T> {
     public NodeTree(T value) {
         super(value);
     }
+
+    public boolean isLeaf(){
+        return left == null && right == null;
+    }
 }
