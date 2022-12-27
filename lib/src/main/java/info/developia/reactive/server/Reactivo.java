@@ -61,8 +61,8 @@ public class Reactivo {
         return this;
     }
 
-    public Reactivo addHandler(String path, RequestHandler handler) {
-        router.map(path, handler);
+    public Reactivo addHandler(String basePath, RequestHandler handler) {
+        router.map(basePath, handler);
         return this;
     }
 }
