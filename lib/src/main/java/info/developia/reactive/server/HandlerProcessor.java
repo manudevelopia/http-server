@@ -8,6 +8,8 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.function.BiConsumer;
 
+import static info.developia.util.value.Value.valueOr;
+
 public class HandlerProcessor implements HttpHandler {
     private final Router router;
 
@@ -31,7 +33,7 @@ public class HandlerProcessor implements HttpHandler {
 
     private Request buildRequest(HttpExchange t) {
         try {
-            return new Request(t.getRequestMethod(), t.getRequestURI().getPath(), t.getRequestURI().getQuery(),
+            return new Request(t.getRequestMethod(), t.getRequestURI().getPath(), valueOr(t.getRequestURI().getQuery(), ""),
                     new String(t.getRequestBody().readAllBytes(), StandardCharsets.UTF_8));
         } catch (IOException e) {
             throw new RuntimeException();
