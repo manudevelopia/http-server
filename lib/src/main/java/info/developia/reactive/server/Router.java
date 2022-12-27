@@ -13,8 +13,8 @@ public class Router {
 
     public BiConsumer<Request, Response> getHandler(String handlerKey) {
         return routes.computeIfAbsent(handlerKey, (e) -> (req, res) -> {
-            res.setStatus(404);
-            res.setBody("not found!!!");
+            res.status(404);
+            res.body("not found!!!");
         });
     }
 }

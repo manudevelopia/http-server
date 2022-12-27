@@ -23,11 +23,11 @@ public class HandlerProcessor implements HttpHandler {
         var response = new Response();
 
         getHandler(request).accept(request, response);
-        response.setBody("%s - %s".formatted(request, response));
+        response.body("%s - %s".formatted(request, response));
 
-        t.sendResponseHeaders(response.getStatus(), response.getBody().length());
+        t.sendResponseHeaders(response.status(), response.body().length());
         OutputStream os = t.getResponseBody();
-        os.write(response.getBody().getBytes());
+        os.write(response.body().getBytes());
         os.close();
     }
 
