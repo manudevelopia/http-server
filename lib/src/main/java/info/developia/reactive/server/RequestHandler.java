@@ -7,17 +7,17 @@ import java.util.function.BiConsumer;
 import static info.developia.reactive.server.Method.GET;
 
 public class RequestHandler {
-    private final List<Route> routes = new ArrayList<>();
+    private final List<RouteHandler> routeHandlers = new ArrayList<>();
 
     public void get(BiConsumer<Request, Response> handler) {
-        routes.add(new Route(GET, handler));
+        routeHandlers.add(new RouteHandler(GET, handler));
     }
 
     public void get(String path, BiConsumer<Request, Response> handler) {
-        routes.add(new Route(GET, path, handler));
+        routeHandlers.add(new RouteHandler(GET, path, handler));
     }
 
-    public List<Route> routes() {
-        return routes;
+    public List<RouteHandler> routeHandlers() {
+        return routeHandlers;
     }
 }

@@ -4,17 +4,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-public class Route {
+public class RouteHandler {
     private final Method method;
     private final String pathPattern;
     private final List<String> pathVariables;
     private final BiConsumer<Request, Response> handler;
 
-    public Route(Method method, BiConsumer<Request, Response> handler) {
+    public RouteHandler(Method method, BiConsumer<Request, Response> handler) {
         this(method, "", handler);
     }
 
-    public Route(Method method, String pathPattern, BiConsumer<Request, Response> handler) {
+    public RouteHandler(Method method, String pathPattern, BiConsumer<Request, Response> handler) {
         this.method = method;
         this.pathPattern = pathPattern;
         this.handler = handler;

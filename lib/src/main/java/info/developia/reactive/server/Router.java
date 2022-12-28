@@ -8,7 +8,7 @@ public class Router {
     private final Map<String, BiConsumer<Request, Response>> routes = new HashMap<>();
 
     public void map(String basePath, RequestHandler handler) {
-        handler.routes().forEach((route) -> routes.put(route.method() + basePath + route.pathPattern(), route.handler()));
+        handler.routeHandlers().forEach((route) -> routes.put(route.method() + basePath + route.pathPattern(), route.handler()));
     }
 
     public BiConsumer<Request, Response> getHandler(String handlerKey) {
