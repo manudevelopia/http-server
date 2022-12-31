@@ -23,7 +23,6 @@ public class HandlerProcessor implements HttpHandler {
         var response = new Response();
 
         getHandler(request).accept(request, response);
-        response.body("%s - %s".formatted(request, response));
 
         t.sendResponseHeaders(response.status(), response.body().length());
         OutputStream os = t.getResponseBody();

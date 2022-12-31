@@ -6,15 +6,18 @@ public class HelloController extends RequestHandler {
 
     public HelloController() {
         get((request, response) -> {
-            System.out.printf("Hello %s %n", request);
+            String body = "Hello %s ".formatted(request);
+            response.body("%s - %s %s".formatted(request, response, body));
         });
 
         get("/me", (request, response) -> {
-            System.out.printf("Hello me %s %n", request);
+            String body = "Hello me %s ".formatted(request);
+            response.body("%s - %s %s".formatted(request, response, body));
         });
 
         get("/say/:name", (request, response) -> {
-            System.out.printf("say/:name %s %n", request);
+            String body = "Hello say/:name %s".formatted(request);
+            response.body("%s - %s %s".formatted(request, response, body));
         });
     }
 }
