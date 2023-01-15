@@ -1,24 +1,15 @@
 package info.developia.reactive.server;
 
-import com.sun.net.httpserver.HttpServer;
+import ratpack.core.server.RatpackServer;
 
-import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
 public class Reactivo {
     private static final Logger log = Logger.getLogger(Reactivo.class.getName());
-
-    private final HttpServer httpServer;
     private final int port;
     private final Router router;
-    private boolean virtualThreads = true;
-    private int threadsInPool = 200;
 
-    private Reactivo(HttpServer httpServer, int port) {
-        this.httpServer = httpServer;
+    private Reactivo(int port) {
         this.port = port;
         this.router = new Router();
     }
@@ -31,34 +22,17 @@ public class Reactivo {
         }
     }
 
-    public static Reactivo initOn(int port) throws IOException {
-        var httpServer = HttpServer.create(new InetSocketAddress(port), 0);
-        return new Reactivo(httpServer, port);
+    public static Reactivo initOn(int port) {
+        return new Reactivo(port);
     }
 
     public void start() {
-        httpServer.createContext("/", new HandlerProcessor(router));
-        httpServer.setExecutor(getExecutor(virtualThreads));
-        httpServer.start();
-        log.info("Server started on %s port".formatted(port));
-    }
-
-    private Executor getExecutor(boolean virtualThreads) {
-        if (virtualThreads) {
-            return Executors.newVirtualThreadPerTaskExecutor();
-        } else {
-            return Executors.newFixedThreadPool(threadsInPool);
+        try {
+            RatpackServer.start(server -> server.handlers(router.handlers()));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-    }
-
-    public Reactivo virtualThreads(boolean virtualThreadsActive) {
-        virtualThreads = virtualThreadsActive;
-        return this;
-    }
-
-    public Reactivo threadPool(int threadsInPool) {
-        this.threadsInPool = threadsInPool;
-        return this;
+        log.info("Server started on %s port".formatted(port));
     }
 
     public Reactivo addHandler(String basePath, RequestHandler handler) {

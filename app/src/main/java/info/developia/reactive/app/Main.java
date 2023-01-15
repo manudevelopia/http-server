@@ -7,8 +7,6 @@ public class Main {
         Reactivo.init()
                 .addHandler("/hello", new HelloController())
                 .addHandler("/bye", new ByeController())
-                .virtualThreads(true)
-                .threadPool(200)
                 .start();
     }
 }

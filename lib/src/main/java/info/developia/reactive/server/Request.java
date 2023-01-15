@@ -1,11 +1,14 @@
 package info.developia.reactive.server;
 
-public record Request(
-        String method,
-        String path,
-        String query,
-        String body) {
+public class Request {
+    final ratpack.core.http.Request request;
+
+    public Request(ratpack.core.http.Request request) {
+        this.request = request;
+    }
 }
+
+
 
 //        request.attributes();             // the attributes list
 //        request.attribute("foo");         // value of foo attribute

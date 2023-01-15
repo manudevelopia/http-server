@@ -1,20 +1,17 @@
 package info.developia.reactive.server;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.BiConsumer;
+import ratpack.core.handling.Chain;
+import ratpack.func.Action;
 
 public class Router {
-    private final Map<String, BiConsumer<Request, Response>> routes = new HashMap<>();
+    private Action<? super Chain> handlers;
 
     public void map(String basePath, RequestHandler handler) {
-        handler.routeHandlers().forEach((route) -> routes.put(route.method() + basePath + route.pathPattern(), route.handler()));
+        Action<? super Chain> a = action -> action.get(basePath, new HandlerService(handler));
+        handlers = Action.join(handlers, a);
     }
 
-    public BiConsumer<Request, Response> getHandler(String handlerKey) {
-        return routes.computeIfAbsent(handlerKey, (e) -> (req, res) -> {
-            res.status(404);
-            res.body("not found!!!");
-        });
+    public Action<? super Chain> handlers() {
+        return handlers;
     }
 }

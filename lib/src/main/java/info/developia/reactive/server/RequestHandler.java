@@ -1,23 +1,20 @@
 package info.developia.reactive.server;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.BiConsumer;
 
-import static info.developia.reactive.server.Method.GET;
 
 public class RequestHandler {
-    private final List<RouteHandler> routeHandlers = new ArrayList<>();
+    private BiConsumer<Request, Response> handler;
 
     protected void get(BiConsumer<Request, Response> handler) {
-        routeHandlers.add(new RouteHandler(GET, handler));
+        get("/", handler);
     }
 
     protected void get(String path, BiConsumer<Request, Response> handler) {
-        routeHandlers.add(new RouteHandler(GET, path, handler));
+        this.handler = handler;
     }
 
-    List<RouteHandler> routeHandlers() {
-        return routeHandlers;
+    public BiConsumer<Request, Response> getHandler() {
+        return handler;
     }
 }

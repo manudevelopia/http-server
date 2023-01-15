@@ -2,19 +2,26 @@ package info.developia.reactive.app;
 
 import info.developia.reactive.server.RequestHandler;
 
+import java.util.logging.Logger;
+
 public class HelloController extends RequestHandler {
+    private static final Logger log = Logger.getLogger(HelloController.class.getName());
 
     public HelloController() {
         get((request, response) -> {
-            System.out.printf("Hello %s %n", request);
+            log.info("Hello");
+        });
+
+        get("/hello", (request, response) -> {
+            log.info("Hello hello");
         });
 
         get("/me", (request, response) -> {
-            System.out.printf("Hello me %s %n", request);
+            log.info("Hello me %s %n");
         });
 
         get("/say/:name", (request, response) -> {
-            System.out.printf("say/:name %s %n", request);
+            log.info("say/:name %s %n");
         });
     }
 }
