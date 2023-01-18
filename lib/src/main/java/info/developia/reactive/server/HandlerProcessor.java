@@ -32,7 +32,11 @@ public class HandlerProcessor implements HttpHandler {
 
     private Request buildRequest(HttpExchange t) {
         try {
-            return new Request(t.getRequestMethod(), t.getRequestURI().getPath(), valueOr(t.getRequestURI().getQuery(), ""),
+            return new Request(
+                    t.getRequestMethod(),
+                    t.getRequestURI().getPath(),
+                    valueOr(t.getRequestURI().getQuery(), ""),
+                    t.getRequestHeaders().getFirst("Content-Type"),
                     new String(t.getRequestBody().readAllBytes(), StandardCharsets.UTF_8));
         } catch (IOException e) {
             throw new RuntimeException();

@@ -4,6 +4,7 @@ public record Request(
         String method,
         String path,
         String query,
+        String contentType,
         String body) {
 }
 

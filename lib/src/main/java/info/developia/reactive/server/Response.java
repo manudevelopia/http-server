@@ -1,7 +1,11 @@
 package info.developia.reactive.server;
 
+import java.util.Map;
+
 public class Response {
-    private int status = 200;
+    private int status;
+    private Map<String, String> headers;
+    private String contentType;
     private String body;
 
     public int status() {
@@ -10,6 +14,22 @@ public class Response {
 
     public void status(int status) {
         this.status = status;
+    }
+
+    public Map<String, String> headers() {
+        return headers;
+    }
+
+    public void headers(Map<String, String> headers) {
+        this.headers = headers;
+    }
+
+    public String contentType() {
+        return contentType;
+    }
+
+    public void contentType(String contentType) {
+        this.contentType = contentType;
     }
 
     public String body() {
