@@ -37,7 +37,7 @@ public class Reactivo {
     }
 
     public void start() {
-        httpServer.createContext("/", new HandlerProcessor(router));
+        httpServer.createContext("/", new RequestProcessor(router));
         httpServer.setExecutor(getExecutor(virtualThreads));
         httpServer.start();
         log.info("Server started on %s port".formatted(port));
