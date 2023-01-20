@@ -7,7 +7,7 @@ import java.util.function.BiConsumer;
 public class Router {
     private final Map<String, BiConsumer<Request, Response>> staticRoutes = new HashMap<>();
 
-    public void map(String basePath, RequestHandler handler) {
+    public void map(String basePath, Handler handler) {
         handler.routeHandlers().forEach((routeHandler) -> {
             staticRoutes.put(routeHandler.method() + basePath + routeHandler.pathPattern(), routeHandler.handler());
         });

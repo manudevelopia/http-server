@@ -6,7 +6,7 @@ import java.util.function.BiConsumer;
 
 import static info.developia.reactive.server.Method.GET;
 
-public abstract class RequestHandler {
+public abstract class Handler {
     private final List<RouteHandler> routeHandlers = new ArrayList<>();
 
     protected void get(BiConsumer<Request, Response> handler) {

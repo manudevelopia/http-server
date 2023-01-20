@@ -1,8 +1,8 @@
 package info.developia.reactive.app;
 
-import info.developia.reactive.server.RequestHandler;
+import info.developia.reactive.server.Handler;
 
-public class ByeController extends RequestHandler {
+public class ByeController extends Handler {
 
     public ByeController() {
         get( (request, response) -> {

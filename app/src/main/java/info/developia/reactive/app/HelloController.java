@@ -1,8 +1,8 @@
 package info.developia.reactive.app;
 
-import info.developia.reactive.server.RequestHandler;
+import info.developia.reactive.server.Handler;
 
-public class HelloController extends RequestHandler {
+public class HelloController extends Handler {
 
     public HelloController() {
         get((request, response) -> {
