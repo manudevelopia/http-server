@@ -10,10 +10,10 @@ import java.util.function.BiConsumer;
 
 import static info.developia.util.value.Value.valueOr;
 
-public class RequestProcessor implements HttpHandler {
+public class RequestDispatcher implements HttpHandler {
     private final Router router;
 
-    protected RequestProcessor(Router router) {
+    protected RequestDispatcher(Router router) {
         this.router = router;
     }
 
