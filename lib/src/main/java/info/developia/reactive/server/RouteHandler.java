@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-public class RouteHandler {
+public class RouteHandler implements Comparable<RouteHandler> {
     private final Method method;
-    private final String pathPattern;
+    private String pathPattern;
     private final List<String> pathVariables;
     private final BiConsumer<Request, Response> handler;
 
@@ -32,6 +32,10 @@ public class RouteHandler {
         return method;
     }
 
+    public void basePath(String basePath) {
+        this.pathPattern = basePath + pathPattern;
+    }
+
     public String pathPattern() {
         return pathPattern;
     }
@@ -46,5 +50,15 @@ public class RouteHandler {
 
     public BiConsumer<Request, Response> handler() {
         return handler;
+    }
+
+    @Override
+    public int compareTo(RouteHandler otherRouteHandler) {
+        int possition = method().compareTo(otherRouteHandler.method());
+        if (possition != 0) {
+            return possition;
+        }
+        possition = pathPattern.compareTo(otherRouteHandler.pathPattern());
+        return possition;
     }
 }
